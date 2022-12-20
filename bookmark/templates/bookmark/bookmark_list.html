@@ -4,27 +4,27 @@
 
 {% block content %}
 <div class = "btn-group">
-    <a href="{% url 'bookmark:add' %}" class="btn btn-info">Add Bookmark</a>
+    <a href="{% url 'bookmark:add' %}" class="btn btn-outline-info">북마크 추가하기</a>
 </div>
 <p></p>
-<table class="table">
+<table class="table table-hover">
     <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col">Site</th>
-            <th scope="col">URL</th>
-            <th scope="col">Modify</th>
-            <th scope="col">Delete</th>
+            <th scope="col">사이트</th>
+            <th scope="col">주소</th>
+            <th scope="col">수정</th>
+            <th scope="col">삭제</th>
         </tr>
     </thead>
     <tbody>
         {% for bookmark in object_list %}
             <tr>
                 <td>{{forloop.counter}}</td>
-                <td><a href="{% url 'bookmark:detail' pk=bookmark.id %}">{{bookmark.site_name}}</a></td>
-                <td><a href="{{bookmark.url}}" target="_blank">{{bookmark.url}}</a></td>
-                <td><a href="{% url 'bookmark:update' pk=bookmark.id %}" class="btn btn-success btn-sm">Modify</a></td>
-                <td><a href="{% url 'bookmark:delete' pk=bookmark.id %}" class="btn btn-danger btn-sm">Delete</a></td>
+                <td><a href="{% url 'bookmark:detail' pk=bookmark.id %}" class="text-decoration-none" style="color: darkturquoise">{{bookmark.site_name}}</a></td>
+                <td><a href="{{bookmark.url}}" target="_blank" class="text-decoration-none" style="color: darkturquoise" >{{bookmark.url}}</a></td>
+                <td><a href="{% url 'bookmark:update' pk=bookmark.id %}" class="btn btn-outline-success btn-sm" >수정</a></td>
+                <td><a href="{% url 'bookmark:delete' pk=bookmark.id %}" class="btn btn-outline-danger btn-sm">삭제</a></td>
             </tr>
         {% endfor %}
     </tbody>

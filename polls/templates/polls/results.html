@@ -1,17 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block title %} Polls detail {% endblock %}
+{% block content %}
 <h1>{{question.question_text}}</h1>
-<ul>
+<ul class="list-group list-group-flush">
     {% for choice in question.choice_set.all %}
-    <li>{{choice.choice_text}} -- {{choice.votes}} vote{{choice.votes|pluralize}}</li>
+    <li class="list-group-item">{{choice.choice_text}} -- {{choice.votes}} vote{{choice.votes|pluralize}}</li>
     {% endfor %}
 </ul>
-<a href="{% url 'polls:detail' question.id %}">Vote again?</a>
-<a href="{% url 'polls:chart' question.id %}">Chart</a>
-</body>
-</html>
+<br/>
+<button type="button" class="btn btn-outline-secondary" onclick="location.href='{% url 'polls:detail' question.id %}'">다시 투표?</button>
+<button type="button" class="btn btn-outline-info" onclick="location.href='{% url 'polls:chart' question.id %}'">차트 보기</button>
+
+{% endblock %}

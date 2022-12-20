@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block title %} Polls Chart {% endblock %}
+{% block content %}
     <div id="container" style="margin-top: 20px;"></div>
 
     {% load static %}
@@ -14,5 +10,6 @@
 
     <script defer src ="{% static 'polls/javascript.js' %}"></script>
 
-</body>
-</html>
+    <button type="button" onclick="location.href='{% url 'polls:index' %}'" class="btn btn-outline-secondary">목록으로</button>
+
+{% endblock %}

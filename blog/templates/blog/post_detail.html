@@ -1,17 +1,65 @@
-{% extends 'blog/base.html' %}
+{#{% extends 'blog/base.html' %}#}
+{% extends 'base.html' %}
 
 {% block content %}
+    {% load static %}
+{#    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">#}
+{#    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">#}
+{#    <div class="page-header">#}
+{#      {% if user.is_authenticated %}#}
+{#      <a href="{% url 'blog:post_new' %}" class="top-menu">#}
+{#        <span class="glyphicon glyphicon-plus"></span></a>#}
+{#      {% endif %}#}
+{#        <h1><a href="{% url 'blog:post_list' %}">Kimjy01's Blog</a></h1>#}
+{#    </div>#}
     <div class="post">
         {% if post.published_date %}
             <div class="date">
                 {{ post.published_date }}
             </div>
         {% endif %}
+
+        <h1>제목 : {{ post.title }}</h1>
+        <hr>
+        <p>내용 : {{ post.text|linebreaksbr }}</p>
+        <hr>
+        <form action="{% url 'blog:vote' pk=post.pk %}" method="post">
+            {% csrf_token %}
+            <input type="submit" value="좋아요" class="btn btn-outline-danger" id="count">
+            <button type="button" class="btn btn-outline-danger" id="like" disabled>{{ post.like }}</button>
+        </form>
+        <br>
+        <br>
         {% if user.is_authenticated %}
-            <a class="btn btn-default" href="{% url 'blog:post_edit' pk=post.pk %}">
-            <span class="glyphicon glyphicon-pencil"></span></a>
+            <a class="btn btn-outline-info" href="{% url 'blog:post_edit' pk=post.pk %}">수정하기</a>
         {% endif %}
-        <h1>{{ post.title }}</h1>
-        <p>{{ post.text|linebreaksbr }}</p>
+        <button type="button" class="btn btn-outline-secondary" onclick="location.href='{% url 'blog:post_list' %}'">뒤로가기</button>
     </div>
+
+    <script>
+
+    // 'request'라는 id를 가진 버튼 클릭 시 실행.
+    $("#count").click(function(){
+
+            // json 형식으로 데이터 set
+            var params = {
+
+            }
+
+            // ajax 통신
+            $.ajax({
+                type : "POST",            // HTTP method type(GET, POST) 형식이다.
+                url : "/test/ajax",      // 컨트롤러에서 대기중인 URL 주소이다.
+                data : params,            // Json 형식의 데이터이다.
+                success : function(res){ // 비동기통신의 성공일경우 success콜백으로 들어옵니다. 'res'는 응답받은 데이터이다.
+                    // 응답코드 > 0000
+                    alert(res.code);
+                },
+                error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
+                    alert("통신 실패.")
+                }
+            });
+        });
+
+    </script>
 {% endblock %}
