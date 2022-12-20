@@ -7,8 +7,8 @@
 주소 : {{object.url}}
     <p></p>
     <div class="d-grid gap-3 d-md-block">
-        <button type="button" class="btn btn-outline-danger" onclick="location.href='{% url 'bookmark:list' %}'">뒤로가기</button>
+        <button type="button" class="btn btn-outline-secondary" onclick="location.href='{% url 'bookmark:list' %}'">뒤로가기</button>
         <button type="button" class="btn btn-outline-success" onclick="location.href='{% url 'bookmark:update' pk=bookmark.id %}'">수정하기</button>
-        <button type="button" onclick="location.href='{% url 'bookmark:delete' pk=bookmark.id %}'" class="btn btn-outline-danger btn-sm">삭제하기</button>
+        <button type="button" onclick="location.href='{% url 'bookmark:delete' pk=bookmark.id %}'" class="btn btn-outline-danger">삭제하기</button>
     </div>
 {% endblock %}
